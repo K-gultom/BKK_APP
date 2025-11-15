@@ -100,7 +100,7 @@
                         <button type="reset" class="btn btn-warning">Reset</button>
                     @endif
 
-                    <a href="{{ url('/') }}" class="btn btn-danger">Back</a>
+                    <a href="{{ url('/surat') }}" class="btn btn-danger">Back</a>
                 </form>
             </div>
         </div>

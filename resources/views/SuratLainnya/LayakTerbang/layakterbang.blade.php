@@ -104,9 +104,10 @@
 
                 
 
-                <button type="submit" class="btn btn-primary mt-3">
+                <button type="submit" class="btn btn-primary">
                     <i class="bi bi-save"></i> Ajukan Surat
                 </button>
+                <a href="{{ url('/surat') }}" class="btn btn-danger">Back</a>
             </div>
         </div>
 
