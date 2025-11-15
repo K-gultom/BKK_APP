@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\User\userController;
 use App\Http\Controllers\Admin\VerifikasiLapanganController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\keteranganSehatController;
+use App\Http\Controllers\keteranganSehatDashboardController;
 use App\Http\Controllers\layakTerbangController;
 use App\Http\Controllers\layarTerbangDashboardController;
 use App\Http\Controllers\LoginController;
@@ -118,6 +119,7 @@ Route::middleware(['auth', 'cekRole:admin,user'])->group(function(){
     Route::resource('/surat-layak-terbang-dashboard', layarTerbangDashboardController::class);
     
     Route::resource('/keterangan-sehat', keteranganSehatController::class);
+    Route::resource('/keterangan-sehat-dashboard', keteranganSehatDashboardController::class);
 
 
 });

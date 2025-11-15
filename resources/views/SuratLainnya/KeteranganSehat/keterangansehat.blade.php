@@ -116,7 +116,7 @@
                 <input type="text" name="tempat_surat" class="form-control">
             </div>
             <div class="col-md-6 mb-3">
-                <label class="form-label">Tanggal Surat</label>
+                <label class="form-label">Tanggal Surat Dibuat</label>
                 <input type="date" name="tanggal_surat" class="form-control">
             </div>
         </div>
@@ -127,7 +127,7 @@
                 <a href="{{ url('/surat') }}" class="btn btn-danger">Back</a>
             </div>
         </div>
-        
+
     </form>
 
 

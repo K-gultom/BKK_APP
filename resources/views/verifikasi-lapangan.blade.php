@@ -26,6 +26,9 @@
                 $allValid = true;
             @endphp
             @foreach($verifications as $verification)
+            <center class="mt-4">
+                <h2 class="mb-3">Riwayat Pengajuan Surat Izin Praktik</h2>
+            </center>
                 <table class="table">
                     <thead>
                         <tr>
@@ -134,15 +137,16 @@
 
         <hr class="my-5">
 
-        <center class="mt-4">
-            <h2 class="mb-3">Riwayat Pengajuan Surat Layak Terbang</h2>
-        </center>
+        
         @if($layakTerbang->isEmpty())
             <center class="mb-4">
                 {{-- <p><strong>Maaf Anda belum pernah membuat jenis surat ini</strong></p> --}}
             </center>
         @else
             @foreach($layakTerbang as $surat)
+            <center class="mt-4">
+                <h2 class="mb-3">Riwayat Pengajuan Surat Layak Terbang</h2>
+            </center>
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark">
                         <tr>
@@ -229,17 +233,19 @@
 
 
 
-        <hr class="my-5">
-        <center class="mt-4">
-            <h2 class="mb-3">Riwayat Pengajuan Surat Keterangan Sehat</h2>
-        </center>
+        
 
         @if($keteranganSehat->isEmpty())
+            
             <center class="mb-4">
-                <p><strong>Belum ada pengajuan surat keterangan sehat.</strong></p>
+                {{-- <p><strong>Belum ada pengajuan surat keterangan sehat.</strong></p> --}}
             </center>
         @else
             @foreach($keteranganSehat as $surat)
+            <hr class="my-5">
+            <center class="mt-4">
+                <h2 class="mb-3">Riwayat Pengajuan Surat Keterangan Sehat</h2>
+            </center>
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark">
                         <tr>

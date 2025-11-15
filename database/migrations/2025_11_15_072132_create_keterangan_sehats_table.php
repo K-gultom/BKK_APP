@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('keterangan_sehats', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            
+
             // Data Dokter
             $table->string('nama_dokter');
             $table->string('nomor_sip');
@@ -41,6 +41,10 @@ return new class extends Migration
             $table->string('tempat_surat');
             $table->date('tanggal_surat');
 
+            
+            // Status
+            $table->string('status')->default('Sedang Diproses');
+            
             $table->timestamps();
         });
     }

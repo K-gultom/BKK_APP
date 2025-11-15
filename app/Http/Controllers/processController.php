@@ -171,7 +171,17 @@ class processController extends Controller
                     ->where('user_id', $userId)
                     ->paginate(10, ['*'], 'layak_page');
 
-        return view('penerbitan-perizinan', compact('users', 'layakTerbang'));
+                    // Data surat keterangan sehat
+        $keteranganSehat = keterangan_sehat::where('status', 'Disetujui')
+                ->where('user_id', $userId)
+                ->paginate(10, ['*'], 'sehat_page');
+
+
+        return view('penerbitan-perizinan', compact(
+            'users', 
+            'layakTerbang',
+            'keteranganSehat',
+        ));
     }
 
     public function generateSuratIzin($id)

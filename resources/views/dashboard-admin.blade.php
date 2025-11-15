@@ -88,7 +88,7 @@
             <div class="container mt-3" style="padding-right: 50px">
                 <a class="head navbar-brand mt-3" href="#">
                     <img class="rounded" src="{{ asset('/images/logoo.png') }}" height="60">
-                    KKP Palembang
+                    BKK Kelas 1 Palembang
                 </a>
                 <h3 class="head m-3"></h3>
             </div>
@@ -106,11 +106,11 @@
 
                     <hr>
 
-                    <a href="{{ route('admin.kelengkapan-dokumen.index') }}" class="px-1 side nav-item nav-link {{ Request::is('kelengkapan-dokumen') ? 'active' : '' }} text-light">
+                    <a href="{{ route('admin.kelengkapan-dokumen.index') }}" class="px-1 side nav-item nav-link {{ Request::is('admin/kelengkapan-dokumen') ? 'active' : '' }} text-light">
                         <i class="bi bi-clipboard-data-fill mx-2"></i> Surat Izin Praktik
                     </a>
 
-                    <a href="{{ route('surat-layak-terbang-dashboard.index') }}" class="px-1 side nav-item nav-link {{ Request::is('verifikasi-lapangan') ? 'active' : '' }} text-light">
+                    <a href="{{ route('surat-layak-terbang-dashboard.index') }}" class="px-1 side nav-item nav-link {{ Request::is('surat-layak-terbang-dashboard') ? 'active' : '' }} text-light">
                         <i class="fa-solid fa-globe mx-2"></i> Surat Layak Terbang
                     </a>
 
@@ -118,7 +118,7 @@
                         <i class="fa-solid fa-truck-medical mx-2"></i> Surat Izin Angkut Jenazah
                     </a>
 
-                    <a href="" class="px-1 side nav-item nav-link {{ Request::is('transaksi') ? 'active' : '' }} text-light">
+                    <a href="{{ route('keterangan-sehat-dashboard.index') }}" class="px-1 side nav-item nav-link {{ Request::is('keterangan-sehat-dashboard') ? 'active' : '' }} text-light">
                         <i class="fa-solid fa-briefcase-medical mx-2"></i> Surat Keterangan Sehat
                     </a>
 

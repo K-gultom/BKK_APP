@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\keterangan_sehat;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -70,18 +71,23 @@ class keteranganSehatController extends Controller
             'tujuan' => $request->tujuan,
             'tempat_surat' => $request->tempat_surat,
             'tanggal_surat' => $request->tanggal_surat,
+            'status' => 'Sedang Diproses',
         ]);
 
         Alert::success('success', 'Surat Keterangan Sehat Berhasil Diajukan');
         return redirect('/surat');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        // Ambil data Surat Layak Terbang beserta user yang mengajukan
+        $surat = keterangan_sehat::with('user')->findOrFail($id);
+
+        // Generate PDF menggunakan view Blade 'Print.surat-layak-terbang'
+        $pdf = Pdf::loadView('Print.surat-keterangan-sehat', compact('surat'));
+
+        // Download PDF dengan nama file yang rapi
+        return $pdf->download('surat_keterangan_sehat_' . $surat->user->name . '.pdf');
     }
 
     /**
@@ -105,6 +111,16 @@ class keteranganSehatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $surat = keterangan_sehat::find($id);
+
+        if (!$surat) {
+            Alert::error('Error', 'Data tidak ditemukan');
+            return redirect()->back();
+        }
+
+        $surat->delete();
+
+        Alert::success('Berhasil', 'Pengajuan berhasil dihapus');
+        return redirect()->back();
     }
 }
