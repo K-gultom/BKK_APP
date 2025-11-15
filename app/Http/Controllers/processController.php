@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\KelengkapanDokumen;
+use App\Models\keterangan_sehat;
 use App\Models\layak_terbang;
 use App\Models\Permohonan;
 use App\Models\User;
@@ -128,7 +129,16 @@ class processController extends Controller
                             ->orderBy('created_at', 'desc')
                             ->get();
 
-        return view('verifikasi-lapangan', compact('verifications', 'layakTerbang'));
+        // DATA SURAT Keterangan Sehat
+        $keteranganSehat = keterangan_sehat::where('user_id', $userId)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+
+        return view('verifikasi-lapangan', compact(
+            'verifications', 
+            'layakTerbang',
+            'keteranganSehat',
+        ));
     }
     
 

@@ -146,7 +146,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="table-dark">
                         <tr>
-                            <th>Nama Pasien</th>
+                            <th>Nama Pemohon</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Tanggal Pengajuan</th>
                             <th class="text-center">Aksi</th>
@@ -226,6 +226,140 @@
                 </div>
             @endforeach
         @endif
+
+
+
+        <hr class="my-5">
+        <center class="mt-4">
+            <h2 class="mb-3">Riwayat Pengajuan Surat Keterangan Sehat</h2>
+        </center>
+
+        @if($keteranganSehat->isEmpty())
+            <center class="mb-4">
+                <p><strong>Belum ada pengajuan surat keterangan sehat.</strong></p>
+            </center>
+        @else
+            @foreach($keteranganSehat as $surat)
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nama Pasien</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Tanggal Pengajuan</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $surat->nama_pasien }}</td>
+
+                            {{-- STATUS --}}
+                            <td class="text-center">
+                                @if($surat->status == 'Disetujui')
+                                    <span class="badge bg-success">Disetujui</span>
+                                @elseif($surat->status == 'Ditolak')
+                                    <span class="badge bg-danger">Ditolak</span>
+                                @else
+                                    <span class="badge bg-warning">Sedang Diproses</span>
+                                @endif
+                            </td>
+
+                            {{-- TANGGAL --}}
+                            <td class="text-center">
+                                {{ $surat->created_at->format('d-m-Y') }}
+                            </td>
+
+                            {{-- AKSI --}}
+                            <td class="text-center">
+
+                                {{-- Tombol Detail --}}
+                                <button class="btn btn-info"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#detailKeteranganSehat{{ $surat->id }}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+
+                                {{-- Tombol Delete --}}
+                                <form action="{{ route('keterangan-sehat.destroy', $surat->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Hapus pengajuan ini?')"
+                                    style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                {{-- MODAL DETAIL --}}
+                <div class="modal fade" id="detailKeteranganSehat{{ $surat->id }}" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title">Detail Surat Keterangan Sehat</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <h5 class="fw-bold">Data Dokter Pemeriksa</h5>
+                                <ul>
+                                    <li>Nama Dokter: {{ $surat->nama_dokter }}</li>
+                                    <li>Nomor SIP: {{ $surat->nomor_sip }}</li>
+                                    <li>Instansi: {{ $surat->instansi }}</li>
+                                </ul>
+
+                                <h5 class="fw-bold">Data Pasien</h5>
+                                <ul>
+                                    <li>Nama Pasien: {{ $surat->nama_pasien }}</li>
+                                    <li>Jenis Kelamin: {{ $surat->jenis_kelamin }}</li>
+                                    <li>Tanggal Lahir: {{ $surat->tanggal_lahir }}</li>
+                                    <li>Pekerjaan: {{ $surat->pekerjaan }}</li>
+                                    <li>Alamat: {{ $surat->alamat }}</li>
+                                </ul>
+
+                                <h5 class="fw-bold">Hasil Pemeriksaan Fisik</h5>
+                                <ul>
+                                    <li>Tekanan Darah: {{ $surat->tekanan_darah }}</li>
+                                    <li>Nadi: {{ $surat->nadi }}</li>
+                                    <li>Tinggi Badan: {{ $surat->tinggi_badan }} cm</li>
+                                    <li>Berat Badan: {{ $surat->berat_badan }} kg</li>
+                                    <li>Suhu Tubuh: {{ $surat->suhu }} °C</li>
+                                    <li>Buta Warna: {{ $surat->buta_warna }}</li>
+                                    <li>Riwayat Penyakit: {{ $surat->riwayat_penyakit ?? '-' }}</li>
+                                </ul>
+
+                                <h5 class="fw-bold">Informasi Surat</h5>
+                                <ul>
+                                    <li>Tujuan Surat: {{ $surat->tujuan }}</li>
+                                    <li>Tempat Dikeluarkan: {{ $surat->tempat_surat }}</li>
+                                    <li>Tanggal Surat: {{ $surat->tanggal_surat }}</li>
+                                </ul>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            @endforeach
+        @endif
+
+
+
+
+
+
         <a href="{{ url('/') }}" class="btn btn-danger">Back</a>
     </div>
 </div>

@@ -8,12 +8,11 @@
         </h3>
     </center>
 
+    <form action="{{ route('keterangan-sehat.store') }}" method="POST" class="card p-4 shadow-sm">
 
-    <form action="" method="POST" class="card p-4 shadow-sm">
-    @csrf
+        @csrf
         <!-- Data Dokter -->
         <h5 class="fw-bold mt-3">Data Dokter Pemeriksa</h5>
-
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label class="form-label">Nama Dokter</label>
@@ -30,10 +29,8 @@
         </div>
 
         <hr>
-
         <!-- Data Pasien -->
         <h5 class="fw-bold mt-3">Data Pasien</h5>
-
         <div class="row">
             <div class="col-md-4 mb-3">
                 <label class="form-label">Nama Lengkap Pasien</label>
@@ -65,10 +62,8 @@
         </div>
 
         <hr>
-
         <!-- Pemeriksaan Fisik -->
         <h5 class="fw-bold mt-3">Hasil Pemeriksaan Fisik</h5>
-
         <div class="row">
             <div class="col-md-3 mb-3">
                 <label class="form-label">Tekanan Darah (mmHg)</label>
@@ -109,13 +104,11 @@
         </div>
 
         <hr>
-
         <!-- Tujuan Surat -->
         <div class="mb-3">
             <label class="form-label">Tujuan Pembuatan Surat</label>
             <input type="text" name="tujuan" class="form-control" placeholder="Misal: Melamar Kerja, Daftar Kuliah, Mengurus SIM">
         </div>
-
         <!-- Tempat & Tanggal Surat -->
         <div class="row">
             <div class="col-md-6 mb-3">
@@ -128,8 +121,13 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3 w-100">Ajukan Surat</button>
-
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Ajukan Surat</button>
+                <a href="{{ url('/surat') }}" class="btn btn-danger">Back</a>
+            </div>
+        </div>
+        
     </form>
 
 
