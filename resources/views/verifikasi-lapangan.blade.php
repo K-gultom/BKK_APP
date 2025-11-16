@@ -362,6 +362,132 @@
         @endif
 
 
+        @if($angkutJenazah->isEmpty())
+
+        @else
+            <hr class="my-5">
+            <center class="mt-4">
+                <h2 class="mb-3">Riwayat Pengajuan Pengiriman Jenazah</h2>
+            </center>
+
+            <table class="table table-bordered table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nama Jenazah</th>
+                        <th class="text-center">Kota Tujuan</th>
+                        <th class="text-center">Tanggal Pengajuan</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach($angkutJenazah as $jenazah)
+                        <tr>
+                            <td>{{ $jenazah->deceased_name }}</td>
+                            <td class="text-center">{{ $jenazah->destination_city }}</td>
+                            <td class="text-center">{{ $jenazah->created_at->format('d-m-Y') }}</td>
+
+                            <td class="text-center">
+
+                                <!-- Tombol Detail -->
+                                <button class="btn btn-info"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#detailJenazah{{ $jenazah->id }}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+
+                                <!-- Tombol Delete -->
+                                <form action="{{ route('pengangkutan-jenazah.destroy', $jenazah->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Hapus pengajuan ini?')"
+                                    style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+
+                            </td>
+                        </tr>
+
+
+                        {{-- MODAL DETAIL --}}
+                        <div class="modal fade" id="detailJenazah{{ $jenazah->id }}" tabindex="-1">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Detail Pengiriman Jenazah</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <h5 class="fw-bold">Data Jenazah</h5>
+                                        <ul>
+                                            <li>Nama Lengkap: {{ $jenazah->deceased_name }}</li>
+                                            <li>Tempat Lahir: {{ $jenazah->birth_place ?? '-' }}</li>
+                                            <li>Tanggal Lahir: {{ $jenazah->birth_date ?? '-' }}</li>
+                                            <li>Jenis Kelamin: {{ $jenazah->gender ?? '-' }}</li>
+                                            <li>Kewarganegaraan: {{ $jenazah->nationality }}</li>
+                                            <li>NIK / Identitas: {{ $jenazah->identity_number ?? '-' }}</li>
+                                            <li>Waktu Meninggal: {{ $jenazah->date_of_death ?? '-' }}</li>
+                                            <li>Tempat Meninggal: {{ $jenazah->place_of_death ?? '-' }}</li>
+                                            <li>Penyebab Kematian: {{ $jenazah->cause_of_death ?? '-' }}</li>
+                                        </ul>
+
+                                        <h5 class="fw-bold mt-4">Rincian Pengiriman</h5>
+                                        <ul>
+                                            <li>Transportasi: {{ $jenazah->transport_method }}</li>
+                                            <li>Maskapai / Jasa Pengangkut: {{ $jenazah->carrier_name }}</li>
+                                            <li>Nomor Penerbangan: {{ $jenazah->flight_number ?? '-' }}</li>
+                                            <li>Jadwal Pengiriman: {{ $jenazah->shipping_datetime ?? '-' }}</li>
+                                            <li>Asal: {{ $jenazah->origin_city }}</li>
+                                            <li>Tujuan: {{ $jenazah->destination_city }}</li>
+                                            <li>Alamat Tujuan: {{ $jenazah->destination_address }}</li>
+                                        </ul>
+
+                                        <h5 class="fw-bold mt-4">Penanggung Jawab</h5>
+                                        <ul>
+                                            <li>Nama: {{ $jenazah->recipient_name }}</li>
+                                            <li>Telepon: {{ $jenazah->recipient_phone }}</li>
+                                        </ul>
+
+                                        <h5 class="fw-bold mt-4">Penanganan Jenazah</h5>
+                                        <ul>
+                                            <li>Pembalseman: {{ $jenazah->embalmed ? 'Ya' : 'Tidak' }}</li>
+                                            <li>Catatan Pembalseman: {{ $jenazah->embalming_notes ?? '-' }}</li>
+                                            <li>Peti Disegel: {{ $jenazah->sealed_coffin ? 'Ya' : 'Tidak' }}</li>
+                                        </ul>
+
+                                        <h5 class="fw-bold mt-4">Dokumen Medis</h5>
+
+                                        @if($jenazah->medical_certificate)
+                                            <a href="{{ asset('storage/' . $jenazah->medical_certificate) }}"
+                                            class="btn btn-primary"
+                                            target="_blank">
+                                                <i class="bi bi-file-earmark"></i> Lihat Dokumen
+                                            </a>
+                                        @else
+                                            <p class="text-muted">Tidak ada dokumen diunggah.</p>
+                                        @endif
+
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
 
 
 

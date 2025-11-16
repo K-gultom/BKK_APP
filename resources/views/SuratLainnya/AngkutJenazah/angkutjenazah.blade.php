@@ -8,7 +8,7 @@
         </h3>
     </center>
 
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('pengangkutan-jenazah.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <!-- Data Jenazah -->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\angkut_jenazah;
 use App\Models\KelengkapanDokumen;
 use App\Models\keterangan_sehat;
 use App\Models\layak_terbang;
@@ -134,10 +135,15 @@ class processController extends Controller
                             ->orderBy('created_at', 'desc')
                             ->get();
 
+        $angkutJenazah = angkut_jenazah::where('user_id', $userId)
+                         ->orderBy('created_at', 'desc')
+                         ->get();
+
         return view('verifikasi-lapangan', compact(
             'verifications', 
             'layakTerbang',
             'keteranganSehat',
+            'angkutJenazah',
         ));
     }
     
