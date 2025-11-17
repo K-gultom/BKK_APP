@@ -47,6 +47,10 @@ return new class extends Migration
             $table->string('medical_certificate')->nullable();
 
 
+            // Status
+            $table->string('status')->default('Sedang Diproses');
+
+            
             $table->timestamps();
         });
     }

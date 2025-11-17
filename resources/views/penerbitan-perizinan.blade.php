@@ -188,6 +188,89 @@
     @endif
 
 
+    {{-- Surat Angkut Jenazah --}}
+    @if ($angkutJenazah->isEmpty())
+
+    @else
+        <center class="mt-5">
+            <h2>Surat Pengangkutan Jenazah</h2>
+            <p>Berikut hasil pengajuan Surat Pengangkutan Jenazah Anda:</p>
+        </center>
+
+        <div class="row mb-4">
+            <div class="col-8 offset-2">
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">Nama Jenazah</th>
+                            <th class="text-center">Tanggal Kematian</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @forelse ($angkutJenazah as $index => $item)
+                            <tr>
+
+                                {{-- Nomor urut pagination --}}
+                                <td class="text-center">
+                                    {{ ($angkutJenazah->currentPage() - 1) * $angkutJenazah->perPage() + $index + 1 }}
+                                </td>
+
+                                {{-- Nama jenazah --}}
+                                <td>{{ $item->deceased_name }}</td>
+
+                                {{-- Tanggal pengiriman --}}
+                                <td>
+                                    {{ $item->date_of_death 
+                                        ? \Carbon\Carbon::parse($item->date_of_death)->format('d-m-Y H:i') 
+                                        : '-' 
+                                    }}
+                                </td>
+
+                                {{-- STATUS --}}
+                                <td class="text-center">
+                                    @if($item->status == 'Sedang Diproses')
+                                        <span class="badge bg-warning">{{ $item->status }}</span>
+                                    @elseif($item->status == 'Disetujui')
+                                        <span class="badge bg-success">{{ $item->status }}</span>
+                                    @elseif($item->status == 'Ditolak')
+                                        <span class="badge bg-danger">{{ $item->status }}</span>
+                                    @endif
+                                </td>
+
+                                {{-- AKSI --}}
+                                <td class="text-center">
+                                    <a href="{{ route('pengangkutan-jenazah.show', $item->id) }}" 
+                                    class="btn btn-primary" target="_blank">
+                                        Unduh <i class="bi bi-cloud-download"></i>
+                                    </a>
+                                </td>
+
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    Anda belum pernah membuat pengajuan Surat Pengangkutan Jenazah
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+
+                </table>
+
+                <div class="d-flex justify-content-center">
+                    {{ $angkutJenazah->withQueryString()->links() }}
+                </div>
+
+            </div>
+        </div>
+    @endif
+
+
     
 
     <center class="m-4">

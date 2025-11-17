@@ -182,11 +182,16 @@ class processController extends Controller
                 ->where('user_id', $userId)
                 ->paginate(10, ['*'], 'sehat_page');
 
+        $angkutJenazah = angkut_jenazah::where('status', 'Disetujui')
+                ->where('user_id', $userId)
+                ->paginate(10, ['*'], 'sehat_page');
+
 
         return view('penerbitan-perizinan', compact(
             'users', 
             'layakTerbang',
             'keteranganSehat',
+            'angkutJenazah',
         ));
     }
 

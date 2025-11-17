@@ -374,7 +374,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Nama Jenazah</th>
-                        <th class="text-center">Kota Tujuan</th>
+                        <th class="text-center">Status</th>
                         <th class="text-center">Tanggal Pengajuan</th>
                         <th class="text-center">Aksi</th>
                     </tr>
@@ -384,7 +384,15 @@
                     @foreach($angkutJenazah as $jenazah)
                         <tr>
                             <td>{{ $jenazah->deceased_name }}</td>
-                            <td class="text-center">{{ $jenazah->destination_city }}</td>
+                            <td class="text-center">
+                                @if($jenazah->status == 'Sedang Diproses')
+                                    <span class="badge bg-warning">Sedang Diproses</span>
+                                @elseif($jenazah->status == 'Disetujui')
+                                    <span class="badge bg-success">Disetujui</span>
+                                @elseif($jenazah->status == 'Ditolak')
+                                    <span class="badge bg-danger">Ditolak</span>
+                                @endif
+                            </td>
                             <td class="text-center">{{ $jenazah->created_at->format('d-m-Y') }}</td>
 
                             <td class="text-center">

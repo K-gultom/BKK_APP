@@ -114,7 +114,7 @@
                         <i class="fa-solid fa-globe mx-2"></i> Surat Layak Terbang
                     </a>
 
-                    <a href="" class="px-1 side nav-item nav-link {{ Request::is('transaksi') ? 'active' : '' }} text-light">
+                    <a href="{{ route('pengangkutan-jenazah-dashboard.index') }}" class="px-1 side nav-item nav-link {{ Request::is('pengangkutan-jenazah-dashboard') ? 'active' : '' }} text-light">
                         <i class="fa-solid fa-truck-medical mx-2"></i> Surat Izin Angkut Jenazah
                     </a>
 

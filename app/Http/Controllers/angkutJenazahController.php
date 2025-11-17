@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\angkut_jenazah;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -71,6 +72,7 @@ class angkutJenazahController extends Controller
             'embalming_notes' => $request->embalming_notes,
             'sealed_coffin' => $request->has('sealed_coffin'),
             'medical_certificate' => $medicalCertificate,
+            'status' => 'Sedang Diproses',
         ]);
 
         Alert::success('Sukses', 'Data pengangkutan jenazah berhasil disimpan.');
@@ -79,12 +81,16 @@ class angkutJenazahController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        // Ambil data Surat Layak Terbang beserta user yang mengajukan
+        $data  = angkut_jenazah::with('user')->findOrFail($id);
+
+        // Generate PDF menggunakan view Blade 'Print.surat-layak-terbang'
+        $pdf = Pdf::loadView('Print.surat-angkut-jenazah', compact('data'));
+
+        // Download PDF dengan nama file yang rapi
+        return $pdf->download('surat-angkut-jenazah_Pemohon_' . $data ->user->name . '.pdf');
     }
 
     /**
@@ -108,6 +114,7 @@ class angkutJenazahController extends Controller
      */
     public function destroy(string $id)
     {
+
         $item = angkut_jenazah::where('user_id', Auth::id())->findOrFail($id);
 
         // Hapus file dokumen jika ada
@@ -117,6 +124,7 @@ class angkutJenazahController extends Controller
 
         $item->delete();
 
-        return redirect()->back()->with('success', 'Data pengajuan berhasil dihapus.');
+        Alert::success('Berhasil', 'Pengajuan berhasil dihapus');
+        return redirect()->back();
     }
 }

@@ -35,6 +35,7 @@ class angkut_jenazah extends Model
         'embalming_notes',
         'sealed_coffin',
         'medical_certificate',
+        'status',
     ];
 
     /**
