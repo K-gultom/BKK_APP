@@ -15,6 +15,7 @@ use App\Http\Controllers\layakTerbangController;
 use App\Http\Controllers\layarTerbangDashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MedicController;
+use App\Http\Controllers\persyaratanController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ProcessController;
 use Illuminate\Support\Facades\Route;
@@ -132,3 +133,12 @@ Route::middleware(['auth', 'cekRole:admin,user'])->group(function(){
 Route::get('/test', function () {
     return view('admin.clinics.KelengkapanDokumen.KelengkapanDokumen');
 });
+Route::prefix('persyaratan')->name('persyaratan.')->group(function(){
+    Route::get('/izin-praktik', [persyaratanController::class, 'izinPraktik'])->name('izinPraktik');
+
+    Route::get('/layak-terbang', [persyaratanController::class, 'layakTerbang'])->name('layakTerbang');
+    Route::get('/pengangkutan-jenazah', [persyaratanController::class, 'pengangkutanJenazah'])->name('pengangkutanJenazah');
+    Route::get('/keterangan-sehat', [persyaratanController::class, 'keteranganSehat'])->name('keteranganSehat');
+
+
+});    

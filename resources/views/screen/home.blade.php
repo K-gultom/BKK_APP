@@ -24,24 +24,39 @@
         <div class="container">
 
             <div class="row gy-4">
-
-                {{-- <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-item position-relative">
+                <!-- Kolom kiri: Persyaratan Izin -->
+                <div class="@auth col-4 @endauth @guest col-6 @endguest  d-flex" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-item position-relative w-100">
                         <div class="icon">
-                            <i class="fa-regular fa-folder-open"></i>
+                            <i class="fa-solid fa-triangle-exclamation"></i>
                         </div>
                         <h4>
-                            <a href="kelengkapan-dokumen" class="stretched-link">Permohonan & Kelengkapan Dokumen</a>
+                            <a href="{{ route('persyaratan.izinPraktik') }}" class="stretched-link">Persyaratan Mengajukan Izin</a>
                         </h4>
-                        <p>Siapkan Segala Sesuatu sesuai dengan form pada halaman Permohonan & Kelengkapan Dokumen</p>
+                        <p>Usulkan Surat Perizinan Anda, Sesuai dengan Surat Perizinan yang Anda butuhkan!!!</p>
                     </div>
-                </div> --}}
-                <!-- End Service Item -->
-
-                <div class="col-xl-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-item position-relative">
+                </div>
+                
+                @guest
+                <!-- Kolom kanan: Ajakan register/login -->
+                <div class="col-6 d-flex align-items-center justify-content-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-item position-relative text-center w-100 p-3 border rounded">
                         <div class="icon">
-                            {{-- <i class="fas fa-thermometer icon"></i> --}}
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+                        <h4>Mau buat surat?</h4>
+                        <p>Yuk register/login sekarang untuk mengajukan surat perizinan!</p>
+                        <a href="{{ route('register') }}" class="btn btn-primary mt-2">Register</a>
+                        <a href="{{ route('login') }}" class="btn btn-outline-primary mt-2">Login</a>
+                    </div>
+                </div>
+                @endguest
+
+                @auth
+                <!-- Kolom untuk user login -->
+                <div class="col-xl-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-item position-relative w-100">
+                        <div class="icon">
                             <i class="fa-regular fa-envelope"></i>
                         </div>
                         <h4>
@@ -50,12 +65,10 @@
                         <p>Lihat disini Apakah Status Permohonan Anda dalam proses, disetujui atau ditolak</p>
                     </div>
                 </div>
-                <!-- End Service Item -->
 
                 <div class="col-xl-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-item position-relative">
+                    <div class="service-item position-relative w-100">
                         <div class="icon">
-                            {{-- <i class="fa-solid fa-book"></i> --}}
                             <i class="fa-solid fa-print"></i>
                         </div>
                         <h4>
@@ -64,20 +77,7 @@
                         <p>Unduh Surat Perizinan Anda Pada halaman Berikut</p>
                     </div>
                 </div>
-                <!-- End Service Item -->
-
-                <div class="col-xl-4 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-item position-relative">
-                        <div class="icon">
-                            <i class="fa-solid fa-repeat"></i>
-                        </div>
-                        <h4>
-                            <a href="pengusulan-ulang" class="stretched-link">Pengusulan Ulang</a>
-                        </h4>
-                        <p>Usulkan Ulang Surat Perizinan Anda, Sesuai dengan masa berlaku Surat Perizinan Anda</p>
-                    </div>
-                </div>
-                <!-- End Service Item -->
+                @endauth
 
             </div>
 
